@@ -1,1 +1,24 @@
-echo "Downloaded successfully!"
+#!/usr/bin/env bash
+
+set -e
+
+echo 
+echo "Checking dependencies are installed."
+
+# Check we have OpenSSL.
+if [[ "$(openssl version)" == "" ]]; then
+  echo "OpenSSL is now available. Please install before continuing."
+  exit 1
+fi
+
+echo "Fetching the mac-spoof script."
+wget https://raw.github.com/jacobbednarz/mac-spoof/master/mac-spoof >/dev/null 2>&1
+
+echo "Ensuring the file is able to be executed."
+chmod u+x mac-spoof
+
+echo "Moving mac-spoof into /usr/bin. Hope that's ok."
+sudo mv -f mac-spoof /usr/bin
+
+echo "mac-spoof is now installed."
+exit 0
