@@ -8,7 +8,7 @@ Spoof your MAC address the old fasion way using already built in linux commands.
 
 ### Installation
 
-    bash < <( curl https://raw.github.com/jacobbednarz/mac-spoof/master/mac-spoof/install )
+    bash < <( curl https://raw.github.com/jacobbednarz/mac-spoof/master/install )
 
 ### Usage
 
