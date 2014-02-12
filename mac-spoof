@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+#
+# Generate a random mac address, the old fashioned way.
+ 
+# Ensure we are running as root.
+if [ "$(id -u)" != "0" ]; then
+  echo "This script must be run as root." 2>&1
+  exit 1
+fi
+ 
+# Check we have the device defined.
+if [ $# -eq 0 ]; then
+    echo "You have not passed through a device name such as wlan0. Please"
+    echo "check the usage example."
+    echo
+    echo "  Usage:"
+    echo "    sudo mac-spoof wlan0"
+fi
+ 
+DEVICE=$1
+FRESH_MAC=$(openssl rand -hex 6 | sed 's/\(..\)/\1:/g; s/.$//')
+ 
+sudo ifconfig $DEVICE down
+sudo ifconfig $DEVICE hw ether $FRESH_MAC
+sudo ifconfig $DEVICE up
+
+echo "Your MAC address is now set to $FRESH_MAC"
